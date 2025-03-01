@@ -1,4 +1,30 @@
 @import "tailwindcss";
+@theme {      
+    /* Fonte Inter */
+    --fonte-inter: Inter, sans-serif;
+
+     /* Cores padrões */
+    --cor-primaria: #FAF9F6;
+    --cor-secundaria: #101720;
+    --cor-campos: #E4E3E1;
+}
+
+/* Classes padrões */
+.bg-primaria {
+    background-color: var(--cor-primaria);
+}
+.bg-secundaria {
+    background-color: var(--cor-secundaria);
+}
+.text-primaria {
+    color: var(--cor-primaria);
+}
+.text-secundaria {
+    color: var(--cor-secundaria);
+}
+.fonte-inter {
+    font-family: var(--fonte-inter);
+}
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -47,14 +73,4 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
-
-/* Fonte */
-
-:root {
-    font-family: Inter, sans-serif;
-    font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
-}
-  @supports (font-variation-settings: normal) {
-    :root { font-family: InterVariable, sans-serif; }
 }
