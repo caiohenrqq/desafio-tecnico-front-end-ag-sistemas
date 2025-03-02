@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./global.css";
 import { Consulta } from "./Consulta";
 
@@ -10,8 +10,10 @@ function App() {
   };
 
   useEffect(() => {
-    let x = () => {
-      setConsultaAtiva(false);
+    let x = (e:any) => {
+      if (e.target) {
+        setConsultaAtiva(false);
+      }
     };
 
     document.addEventListener("mousedown", x);
