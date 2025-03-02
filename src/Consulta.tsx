@@ -1,12 +1,16 @@
-import React from "react";
+import { useRef, forwardRef, useEffect } from "react"
 import "./global.css";
 
-export const Consulta = () => {
+const Consulta = ({ forwardRef }) => {
+  useEffect(() => {
+    console.log(forwardRef.current, 'consulta.tsx');
+  });
   return (
-    <div className="">
-      <div className="w-32 h-32  items-center justify-center rounded-lg shadow-md bg-secundaria">
-        CEP
+      <div ref={forwardRef} className="w-200 h-150 items-center justify-center rounded-e-lg shadow-md bg-secundaria">
+       ...
       </div>
-    </div>
   );
 };
+
+export default Consulta;
+  

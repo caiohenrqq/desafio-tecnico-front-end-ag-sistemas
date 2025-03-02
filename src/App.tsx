@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import "./global.css";
-import { Consulta } from "./Consulta";
+import Consulta from "./Consulta";
 
 function App() {
+  const consultaRef = useRef<any>(null);
   const [consultaAtiva, setConsultaAtiva] = useState<boolean>(false);
 
   const abrirConsulta = () => {
@@ -10,9 +11,10 @@ function App() {
   };
 
   useEffect(() => {
-    let x = (e:any) => {
-      if (e.target) {
+    let x = (e: MouseEvent) => {
+      if (!consultaRef.current.contains(e.target)) {
         setConsultaAtiva(false);
+        console.log(consultaRef.current);
       }
     };
 
@@ -54,11 +56,14 @@ function App() {
           </svg>
         </button>
       </section>
-      {consultaAtiva ? (
-        <div className="fixed inset-0 flex items-center justify-center  ">
-          <Consulta />
-        </div>
-      ) : null}
+      <div
+      
+        className={`z-1000 fixed flex items-center justify-center ${
+          consultaAtiva ? "visible" : "invisible"
+        }`}
+      >
+        <Consulta forwardRef={consultaRef} />
+      </div>
     </>
   );
 }
