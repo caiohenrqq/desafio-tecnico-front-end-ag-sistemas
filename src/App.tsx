@@ -24,11 +24,11 @@ function App() {
   return (
     <>
       <section
-        className={`relative inicio min-h-screen flex flex-col items-center gap-7 justify-center font-sans bg-primaria text-secundaria ${
+        className={`relative min-h-screen flex flex-col items-center gap-7 justify-center font-sans bg-primaria text-secundaria ${
           consultaAtiva ? "blur-sm" : "blur-none"
         }`}
       >
-        <div className="titulo-inicio font-bold text-5xl">
+        <div className="font-bold text-5xl">
           AG Sistemas - Desafio Técnico
         </div>
         {/* Botão para abrir popup */}
