@@ -3,9 +3,13 @@
     /* Fonte Inter */
     --font-sans: InterVariable, sans-serif;
 
-     /* Cores padrões */
-     --color-primaria: #101720;
+    /* Cores padrões */
+    --color-primaria: #101720;
     --color-secundaria: #FAF9F6;
 }
 
+:root {
+    /* Background para cor primária a fim de evitar bugs com blur */
+    background-color: var(--color-primaria);
+}
 

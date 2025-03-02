@@ -1,29 +1,32 @@
 import { useState } from "react";
 import "./global.css";
+import { Consulta } from "./Consulta";
 
 function App() {
-  const [janelaAtiva, setJanelaAtiva] = useState<boolean>(false);
+  const [consultaAtiva, setConsultaAtiva] = useState<boolean>(false);
   
-  const abrirJanela = () => {
-    setJanelaAtiva(true);
+  const abrirConsulta = () => {
+    setConsultaAtiva(true);
   };
 
-  const fecharJanela = () => {
-    setJanelaAtiva(false);
+  const fecharConsulta = () => {
+    setConsultaAtiva(false);
   };
-
+  
   return (
     <>
-      <section className="inicio min-h-screen flex flex-col items-center gap-7 justify-center font-sans bg-primaria text-secundaria">
+      <section className={`inicio min-h-screen flex flex-col items-center gap-7 justify-center font-sans bg-primaria text-secundaria ${consultaAtiva ? "blur-sm" : "blur-none"}`}>
         <div className="titulo-inicio font-bold text-5xl">
           AG Sistemas - Desafio Técnico
         </div>
         {/* Botão para abrir popup */}
         <button
+          onClick={abrirConsulta}
           type="button"
           className="text-primaria hover:bg-gray-400 bg-secundaria rounded-full font-bold text-sm px-5 py-2.5 text-center inline-flex items-center"
         >
           Vamos lá!
+          
           {/* Flecha -> */}
           <svg
             className="rtl:rotate-180 w-6 h-6 ms-2"
@@ -41,6 +44,10 @@ function App() {
             />
           </svg>
         </button>
+        <div>
+          <Consulta/> 
+        </div>
+
       </section>
     </>
   );
