@@ -57,8 +57,8 @@ function App() {
         </button>
       </section>
       <div
-      
-        className={`z-1000 fixed flex items-center justify-center ${
+      // Utilizo forwardRef para pegar o valor ref de Consulta.tsx para poder manipular no useEffect responsável por verificar o clique do mouse fora da ref.
+        className={`absolute inset-0 rounded flex items-center justify-center ${
           consultaAtiva ? "visible" : "invisible"
         }`}
       >
