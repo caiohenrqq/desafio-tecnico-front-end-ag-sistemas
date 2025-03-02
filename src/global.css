@@ -1,15 +1,14 @@
 @import "tailwindcss";
-@theme {      
-    /* Fonte Inter */
-    --font-sans: InterVariable, sans-serif;
+@theme {
+  /* Fonte Inter */
+  --font-sans: Inter, sans-serif;
 
-    /* Cores padrões */
-    --color-primaria: #101720;
-    --color-secundaria: #FAF9F6;
+  /* Cores padrões */
+  --color-primaria: #101720;
+  --color-secundaria: #faf9f6;
 }
 
 :root {
-    /* Background para cor primária a fim de evitar bugs com blur */
-    background-color: var(--color-primaria);
+  /* Background para cor primária a fim de evitar bugs com blur */
+  background-color: var(--color-primaria);
 }
-

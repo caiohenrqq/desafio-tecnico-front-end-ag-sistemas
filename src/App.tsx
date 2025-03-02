@@ -28,9 +28,7 @@ function App() {
           consultaAtiva ? "blur-sm" : "blur-none"
         }`}
       >
-        <div className="font-bold text-5xl">
-          AG Sistemas - Desafio Técnico
-        </div>
+        <div className="font-bold text-5xl">AG Sistemas - Desafio Técnico</div>
         {/* Botão para abrir popup */}
         <button
           onClick={abrirConsulta}
@@ -57,7 +55,7 @@ function App() {
         </button>
       </section>
       <div
-      // Utilizo forwardRef para pegar o valor ref de Consulta.tsx para poder manipular no useEffect responsável por verificar o clique do mouse fora da ref.
+        // Utilizo forwardRef para pegar o valor ref de Consulta.tsx para poder manipular no useEffect responsável por verificar o clique do mouse fora da ref.
         className={`absolute inset-0 rounded flex items-center justify-center ${
           consultaAtiva ? "visible" : "invisible"
         }`}
