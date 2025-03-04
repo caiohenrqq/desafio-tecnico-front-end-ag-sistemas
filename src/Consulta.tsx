@@ -32,6 +32,7 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
 
       var validaCEP = /^[0-9]{8}$/;
       
+      // Validação de cep providenciada na documentação do ViaCEP
       if (validaCEP.test(cep)) {
         fetch(`https://viacep.com.br/ws/${cep}/json`)
           .then((res) => res.json())
@@ -149,6 +150,31 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
               onChange={implementacaoCEP}
             />
           </div>
+        </div>
+
+        <div className="flex justify-center items-center">
+        <button
+          // onClick={}
+          type="button"
+          className="text-secundaria hover:bg-gray-400 bg-primaria rounded-full font-bold text-sm px-5 py-2.5 mt-4 text-center inline-flex items-center"
+        >
+          Salvar
+          <svg
+            className="rtl:rotate-180 w-6 h-6 ms-2"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"
+            />
+          </svg>
+        </button>
         </div>
       </div>
     </div>
