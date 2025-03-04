@@ -1,4 +1,3 @@
-import { useRef, forwardRef, useEffect } from "react";
 import "./global.css";
 
 const Consulta = ({ forwardRef }) => {
