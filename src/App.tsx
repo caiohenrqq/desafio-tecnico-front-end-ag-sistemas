@@ -27,7 +27,7 @@ function App() {
           consultaAtiva ? "blur-sm" : "blur-none"
         }`}
       >
-        <div className="font-bold text-5xl">AG Sistemas - Desafio Técnico</div>
+        <div className="text-center font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">AG Sistemas - Desafio Técnico</div>
         {/* Botão para abrir popup */}
         <button
           onClick={abrirConsulta}
