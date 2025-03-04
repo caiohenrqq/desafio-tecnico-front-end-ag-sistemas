@@ -46,7 +46,7 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
             setLogradouro(dados.logradouro);
             setBairro(dados.bairro);
             setCidade(dados.localidade);
-            setEstado(dados.estado);
+            setEstado(dados.uf);
           })
           .catch((error) => console.error("Erro ao encontrar CEP:", error));
       }
