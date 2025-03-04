@@ -14,7 +14,6 @@ function App() {
     let x = (e: MouseEvent) => {
       if (!consultaRef.current.contains(e.target)) {
         setConsultaAtiva(false);
-        console.log(consultaRef.current);
       }
     };
 
