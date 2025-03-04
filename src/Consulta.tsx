@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./global.css";
 
 interface forwardRefProps {
@@ -5,13 +6,26 @@ interface forwardRefProps {
 }
 
 const Consulta: React.FC<forwardRefProps> = ({ forwardRef}) => {
-  const verificaCEP = (event: any) => {
+  const [logradouro, setLogradouro] = useState<string>('');
+  const [bairro, setBairro] = useState<string>('');
+  const [cidade, setCidade] = useState<string>('');
+  const [estado, setEstado] = useState<string>('');
+  
+ 
+  const implementacaoCEP = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Usando Regex com Replace para substituir qualquer coisa que não seja número.
     const cep = event.target.value.replace(/\D/g, '');
 
-    fetch(`https://viacep.com.br/ws/${cep}/json`).then(res => res.json()).then(data => {
-      console.log(data);
-    });
+    if (!cep) return; 
+
+    fetch(`https://viacep.com.br/ws/${cep}/json`).then(res => res.json()).then(data => {    
+      setLogradouro(data.logradouro);
+      setBairro(data.bairro);
+      setCidade(data.localidade);
+      setEstado(data.estado);
+    })
+
+    .catch(error => console.error('Erro ao encontrar CEP:', error));
   };
   return (
     <div
@@ -27,10 +41,10 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef}) => {
           {/* CEP */}
           <div className="relative w-50 rounded-3xl shadow-sm">
             <input
-              type="search"
+              type="text"
               className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="CEP (Ex: 00000-000)"
-              onChange={verificaCEP} // <--
+              onBlur={implementacaoCEP} // <--
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
@@ -51,17 +65,19 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef}) => {
           {/* Logradouro */}
           <div className="relative w-1/2 rounded-3xl shadow-sm">
             <input
-              type="search"
-              className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              type="text"
+              className="block w-full rounded-3xl border-0 py-1.5 pl-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Logradouro (Rua, avenida, etc)"
+              value={logradouro}
+              onChange={implementacaoCEP}
             />
           </div>
 
           {/* Número */}
           <div className="relative w-40 rounded-3xl shadow-sm">
             <input
-              type="search"
-              className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              type="text"
+              className="block w-full rounded-3xl border-0 py-1.5 pl-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Nº ou Unidade"
             />
           </div>
@@ -69,8 +85,8 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef}) => {
           {/* Complemento */}
           <div className="relative w-1/2 rounded-3xl shadow-sm">
             <input
-              type="search"
-              className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              type="text"
+              className="block w-full rounded-3xl border-0 py-1.5 pl-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Complemento"
             />
           </div>
@@ -78,27 +94,33 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef}) => {
           {/* Bairro */}
           <div className="relative w-60 rounded-3xl shadow-sm">
             <input
-              type="search"
-              className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              type="text"
+              className="block w-full rounded-3xl border-0 py-1.5 pl-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Bairro"
+              value={bairro}
+              onChange={implementacaoCEP}
             />
           </div>
 
           {/* Cidade */}
           <div className="relative w-1/2 rounded-3xl shadow-sm">
             <input
-              type="search"
-              className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              type="text"
+              className="block w-full rounded-3xl border-0 py-1.5 pl-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Cidade"
+              value={cidade}
+              onChange={implementacaoCEP}
             />
           </div>
 
           {/* Estado */}
           <div className="relative w-30 rounded-3xl shadow-sm">
             <input
-              type="search"
-              className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              type="text"
+              className="block w-full rounded-3xl border-0 py-1.5 pl-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="Estado"
+              value={estado}
+              onChange={implementacaoCEP}
             />
           </div>
         </div>
