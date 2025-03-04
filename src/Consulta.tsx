@@ -123,7 +123,7 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
   return (
     <div
       ref={forwardRef}
-      className="w-200 h-150 flex rounded-3xl shadow-md font-sans items-center bg-secundaria"
+      className="w-200 h-150 flex rounded-3xl shadow-md font-sans items-center bg-secundaria text-sm"
     >
       <div className="w-full max-w-lg mx-auto mb-6">
         <div className="text-center text-2xl font-bold text-primaria">
@@ -136,7 +136,7 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
             <input
               type="text"
               value={cep}
-              className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 md:text-lg"
               placeholder="CEP (Ex: 00000-000)"
               onBlur={verificacaoLocalStorage}
               onChange={implementacaoCEP}
@@ -161,8 +161,8 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
           <div className="relative w-1/2 rounded-3xl shadow-sm">
             <input
               type="text"
-              className="block w-full rounded-3xl border-0 py-1.5 text-center text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              placeholder="Logradouro (Rua, avenida, etc)"
+              className="block w-full rounded-3xl border-0 py-1.5 text-center text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xs sm:leading-6"
+              placeholder="Logradouro (Rua)"
               value={logradouro}
               onChange={verificacaoLocalStorage}
             />
