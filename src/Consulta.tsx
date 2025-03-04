@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./global.css";
 
 interface forwardRefProps {
@@ -7,6 +7,23 @@ interface forwardRefProps {
 
 const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
   // Referencia todos os inputs, como se fosse um ID
+  const [dados, setDados] = useState<
+    {
+      cep: string;
+      logradouro: string;
+      bairro: string;
+      cidade: string;
+      estado: string;
+    }[]
+  >([]);
+  const [dadosTemporario, setDadosTemporario] = useState<{
+    cep: string;
+    logradouro: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
+  } | null>(null);
+
   const [logradouro, setLogradouro] = useState<string>("");
   const [bairro, setBairro] = useState<string>("");
   const [cidade, setCidade] = useState<string>("");
@@ -22,16 +39,15 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
   const implementacaoCEP = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Usando Regex c/ Replace para substituir qualquer coisa que não seja número.
     const cep = event.target.value.replace(/\D/g, "");
-    
+
     // Verificões para garantir o envio apenas do CEP correto, evitando chamadas a mais para a API
     if (!cep || cep.length < 8) {
       limpaCampos();
     }
 
     if (cep.length == 8) {
-
       var validaCEP = /^[0-9]{8}$/;
-      
+
       // Validação de cep providenciada na documentação do ViaCEP
       if (validaCEP.test(cep)) {
         fetch(`https://viacep.com.br/ws/${cep}/json`)
@@ -39,21 +55,56 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
           .then((dados) => {
             if (!dados) {
               if (dados.status === true) {
-                console.error('Erro na API');
+                console.error("Erro na API");
                 limpaCampos();
               }
-            };
+            }
+
             setLogradouro(dados.logradouro);
             setBairro(dados.bairro);
             setCidade(dados.localidade);
             setEstado(dados.uf);
+
+            setDadosTemporario({
+              cep: dados.cep,
+              logradouro: dados.logradouro,
+              bairro: dados.bairro,
+              cidade: dados.localidade,
+              estado: dados.uf,
+            });
           })
-          .catch((error) => console.error("Erro ao encontrar CEP:", error));
+          .catch((error) => console.error(`Erro: ${error}`));
       }
     } else {
-      alert("Formato inválido! Exemplo de formato: 00000-000.");
+      console.error("Formato inválido! Exemplo de formato: 00000-000.");
     }
   };
+
+  const salvarDados = () => {
+    if (!dadosTemporario) {
+      console.error("Nenhum dado para salvar.");
+      return;
+    }
+    const dadosArmazenado = localStorage.getItem("dadosArray");
+    const dadosExistente = dadosArmazenado ? JSON.parse(dadosArmazenado) : [];
+
+    // Adiciona os novos dados à lista existente
+    const dadosAtualizado = [...dadosExistente, dadosTemporario];
+
+    localStorage.setItem("dadosArray", JSON.stringify(dadosAtualizado));
+
+    setDados(dadosAtualizado);
+
+    setDadosTemporario(null);
+  };
+
+  useEffect(() => {
+    const dadosArmazenado = localStorage.getItem("dadosArray");
+    if (dadosArmazenado) {
+      setDados(JSON.parse(dadosArmazenado));
+    }
+  }, []);
+
   return (
     <div
       ref={forwardRef}
@@ -153,28 +204,37 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
         </div>
 
         <div className="flex justify-center items-center">
-        <button
-          // onClick={}
-          type="button"
-          className="text-secundaria hover:bg-gray-400 bg-primaria rounded-full font-bold text-sm px-5 py-2.5 mt-4 text-center inline-flex items-center"
-        >
-          Salvar
-          <svg
-            className="rtl:rotate-180 w-6 h-6 ms-2"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
+          <button
+            type="button"
+            className="text-secundaria hover:bg-gray-400 bg-primaria rounded-full font-bold text-sm px-5 py-2.5 mt-4 text-center inline-flex items-center"
+            onClick={salvarDados}
           >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-          </svg>
-        </button>
+            Salvar
+            <svg
+              className="rtl:rotate-180 w-6 h-6 ms-2"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
+              />
+            </svg>
+          </button>
+        </div>
+        <div className="justify-center text-center flex mt-5">
+          {dados.length > 0
+            ? dados.map((dados, i) => (
+                <div key={i}>
+                  {dados.cep}, {dados.logradouro}, {dados.cidade}, {dados.estado}
+                </div>
+              ))
+            : "Nenhum dado encontrado."}
         </div>
       </div>
     </div>
