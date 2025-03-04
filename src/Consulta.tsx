@@ -2,43 +2,57 @@ import { useState } from "react";
 import "./global.css";
 
 interface forwardRefProps {
-  forwardRef: any;// mudar isso <<<<<
+  forwardRef: any; // mudar isso <<<<<
 }
 
 const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
-  const [cep, setCEP] = useState<string>('');
-  const [logradouro, setLogradouro] = useState<string>('');
-  const [bairro, setBairro] = useState<string>('');
-  const [cidade, setCidade] = useState<string>('');
-  const [estado, setEstado] = useState<string>('');
+  // Referencia todos os inputs, como se fosse um ID
+  const [logradouro, setLogradouro] = useState<string>("");
+  const [bairro, setBairro] = useState<string>("");
+  const [cidade, setCidade] = useState<string>("");
+  const [estado, setEstado] = useState<string>("");
 
-  const limpaCampos = () => { 
-    setLogradouro('');
-    setBairro('');
-    setCidade('');
-    setEstado('');
-  }
+  const limpaCampos = () => {
+    setLogradouro("");
+    setBairro("");
+    setCidade("");
+    setEstado("");
+  };
 
   const implementacaoCEP = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Usando Regex c/ Replace para substituir qualquer coisa que não seja número.
+    const cep = event.target.value.replace(/\D/g, "");
+    
+    // Verificões para garantir o envio apenas do CEP correto, evitando chamadas a mais para a API
+    if (!cep || cep.length < 8) {
+      limpaCampos();
+    }
 
-    // Usando Regex com Replace para substituir qualquer coisa que não seja número.
-    const cep = event.target.value.replace(/\D/g, '');
-    if (!cep) return; 
+    if (cep.length == 8) {
 
-    if (cep != null && cep.length > 8) {
-
-    fetch(`https://viacep.com.br/ws/${cep}/json`).then(res => res.json()).then(data => {    
-      setLogradouro(data.logradouro);
-      setBairro(data.bairro);
-      setCidade(data.localidade);
-      setEstado(data.estado);
-    })
-
-    .catch(error => console.error('Erro ao encontrar CEP:', error));
-    limpaCampos();
+      var validaCEP = /^[0-9]{8}$/;
+      
+      if (validaCEP.test(cep)) {
+        fetch(`https://viacep.com.br/ws/${cep}/json`)
+          .then((res) => res.json())
+          .then((dados) => {
+            if (!dados) {
+              if (dados.status === true) {
+                console.error('Erro na API');
+                limpaCampos();
+              }
+            };
+            setLogradouro(dados.logradouro);
+            setBairro(dados.bairro);
+            setCidade(dados.localidade);
+            setEstado(dados.estado);
+          })
+          .catch((error) => console.error("Erro ao encontrar CEP:", error));
+      }
+    } else {
+      alert("Formato inválido! Exemplo de formato: 00000-000.");
+    }
   };
-  alert('Formato inválido! Exemplo de formato: 00000-000.')
-}
   return (
     <div
       ref={forwardRef}
@@ -57,7 +71,6 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
               className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               placeholder="CEP (Ex: 00000-000)"
               onBlur={implementacaoCEP}
-
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
