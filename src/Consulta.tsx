@@ -136,7 +136,7 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
             <input
               type="text"
               value={cep}
-              className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 md:text-lg"
+              className="block w-full rounded-3xl border-0 py-1.5 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 md:text-sm"
               placeholder="CEP (Ex: 00000-000)"
               onBlur={verificacaoLocalStorage}
               onChange={implementacaoCEP}
