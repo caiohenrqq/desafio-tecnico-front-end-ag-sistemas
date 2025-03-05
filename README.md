@@ -1,54 +1,70 @@
-# React + TypeScript + Vite
+# Desafio Técnico - Desenvolvedor(a) Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositório contém a solução para o desafio técnico da AG Sistemas, onde foi desenvolvida uma aplicação em React com TypeScript e TailwindCSS para consulta de endereços via API do ViaCEP, armazenamento local e listagem dos endereços consultados.
 
-Currently, two official plugins are available:
+Utilizei localStorage para guardar os dados pois ele não tem data de expiração, possui setup rápido e é extremamente simples, perfeito para aplicações pequenas com dados que não são sensiveis.
+A escolha do Vite e fetch() foi pelo mesmo motivo: Setup extremamente leve e rápido, ótimo para códigos pequenos. Cogitei usar Next.js, mas sinceramente acredito que não faria diferença neste caso, até um react-create-app funcionaria bem aqui.
+Usei useState para gerenciar os dados e variáveis dentro do código, atualiza sozinho conforme a referência é atualizada, e me permite manipular objetos e arrays, sem problema algum. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+- React com TypeScript
+- TailwindCSS
+- LocalStorage para armazenamento persistente
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📋 Funcionalidades Implementadas
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 1. Campo de CEP
+- Um campo de input onde o usuário pode digitar o CEP desejado.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Consulta ao ViaCEP
+- Ao sair do campo ou pressionar o botão de consulta, a API do ViaCEP (
+  `https://viacep.com.br/ws/{cep}/json/`) é chamada.
+- Os campos de endereço são preenchidos automaticamente com os dados retornados pela API.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 3. Botão "Salvar"
+- Permite armazenar o endereço consultado em um array local no frontend.
+- O armazenamento persistente foi implementado utilizando LocalStorage para garantir a persistência dos dados entre sessões do navegador.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 4. Listagem de Endereços
+- Todos os endereços salvos são exibidos em uma lista interativa para consulta futura.
+
+### 📌 Diferenciais Implementados
+
+✅ **Cache Local:**
+- Foi implementado um cache local para evitar consultas desnecessárias ao ViaCEP.
+- Se um CEP já tiver sido consultado antes, os dados armazenados são usados em vez de fazer uma nova requisição.
+- Para isso, utilizei **useState** e **LocalStorage**.
+
+✅ **Design Responsivo:**
+- A interface foi desenvolvida com **TailwindCSS**, garantindo um layout responsivo e moderno.
+
+## 📦 Instalação e Execução
+
+1. Clone o repositório:
+   ```sh
+   git clone https://github.com/seu-usuario/desafio-ag-sistemas.git
+   cd desafio-tecnico-front-end-ag-sistemas
+   ```
+
+2. Instale as dependências:
+   ```sh
+   npm install
+   ```
+
+3. Inicie o servidor de desenvolvimento:
+   ```sh
+   npm run dev
+   ```
+
+4. Acesse a aplicação pelo navegador disponibilizado no terminal.
+
+## 💡 Decisões Técnicas
+
+- O **useState** foi usado para armazenar os dados de consulta na memória.
+- **LocalStorage** foi utilizado para persistência de dados, garantindo que os endereços salvos permaneçam após o fechamento do navegador.
+- O cache local foi implementado para evitar requisições desnecessárias à API do ViaCEP, melhorando a performance da aplicação.
+
+## 🤖 Uso de Inteligência Artificial
+
+Nenhuma IA foi utilizado no código diretamente, apenas com perguntas diretas e conceitos teóricos.
