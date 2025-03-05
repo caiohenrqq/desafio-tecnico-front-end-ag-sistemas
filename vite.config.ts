@@ -8,7 +8,4 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  server: {
-    host: '192.168.2.35'
-  }
 })
