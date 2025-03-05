@@ -2,6 +2,10 @@
 
 Este repositório contém a solução para o desafio técnico da AG Sistemas, onde foi desenvolvida uma aplicação em React com TypeScript e TailwindCSS para consulta de endereços via API do ViaCEP, armazenamento local e listagem dos endereços consultados.
 
+Utilizei localStorage para guardar os dados pois ele não tem data de expiração, possui setup rápido e é extremamente simples, perfeito para aplicações pequenas com dados que não são sensiveis.
+A escolha do Vite e fetch() foi pelo mesmo motivo: Setup extremamente leve e rápido, ótimo para códigos pequenos. Cogitei usar Next.js, mas sinceramente acredito que não faria diferença neste caso, até um react-create-app funcionaria bem aqui.
+Usei useState para gerenciar os dados e variáveis dentro do código, atualiza sozinho conforme a referência é atualizada, e me permite manipular objetos e arrays, sem problema algum. 
+
 ## 🚀 Tecnologias Utilizadas
 
 - React com TypeScript
