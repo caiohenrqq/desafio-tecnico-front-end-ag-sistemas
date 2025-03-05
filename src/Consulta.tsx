@@ -205,7 +205,7 @@ const Consulta: React.FC<forwardRefProps> = ({ forwardRef }) => {
         <div className="flex justify-center items-center">
           <button
             type="button"
-            className="text-secundaria hover:bg-gray-400 bg-primaria rounded-full font-bold text-sm px-5 py-2.5 mt-4 text-center inline-flex items-center"
+            className="text-secundaria hover:bg-secundaria hover:text-primaria bg-primaria rounded-full font-bold text-sm px-5 py-2.5 mt-4 text-center inline-flex items-center transition duration-700 ease-in-out"
             onClick={salvarDados}
           >
             Salvar

@@ -32,7 +32,7 @@ function App() {
         <button
           onClick={abrirConsulta}
           type="button"
-          className="text-primaria hover:bg-gray-400 bg-secundaria rounded-full font-bold text-sm px-5 py-2.5 text-center inline-flex items-center"
+          className="text-primaria hover:bg-primaria hover:text-secundaria bg-secundaria rounded-full font-bold text-sm px-5 py-2.5 text-center inline-flex items-center transition duration-700 ease-in-out"
         >
           Vamos lá!
           {/* Flecha -> */}
